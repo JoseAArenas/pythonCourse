@@ -1,0 +1,18 @@
+name = raw_input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+sender_dict = dict()
+
+for line in handle:
+	if not line.startswith('From '): continue
+        sender = line.split()[1]
+        sender_dict[sender] = sender_dict.get(sender,0) + 1
+
+num_sends = None
+sender_max = None
+for sender_aux,num_sends_aux in sender_dict.items():
+    if num_sends is None or num_sends_aux > num_sends:
+        num_sends = num_sends_aux
+        sender_max = sender_aux
+        
+print sender_max, num_sends
